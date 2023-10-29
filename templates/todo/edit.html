@@ -1,0 +1,32 @@
+{{ define "data/todo/edit" }}
+
+<tr hx-target="closest tr" hx-swap="outerHTML" class="has-background-dark">
+  <td></td>
+
+  <td><input name="title" class="input" type="text" value="{{.Title}}"></td>
+
+  <td><input name="details" class="input" type="text" value="{{.Details}}"></td>
+
+  <td></td>
+
+  <td>
+    <button class="button is-light" hx-get="/data/todos/{{ .ID }}">
+      <i class="fa fa-fw fa-ban"></i>
+    </button>
+  </td>
+
+  <td>
+    <button class="button is-success" hx-put="/data/todos/{{ .ID }}" hx-include="closest tr">
+      <i class="fa fa-fw fa-check"></i>
+    </button>
+  </td>
+
+  <td>
+    <button class="button is-danger" hx-delete="/data/todos/{{ .ID }}" hx-swap="swap:0.5s">
+      <i class="fa fa-fw fa-trash"></i>
+    </button>
+  </td>
+
+</tr>
+
+{{ end }}

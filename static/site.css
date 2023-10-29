@@ -1,0 +1,14 @@
+tr.htmx-swapping td {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+td input[type='checkbox'].big {
+  width: 2rem;
+  height: 2rem;
+}
+
+td i.big {
+  font-size: 2rem;
+  cursor: pointer;
+}

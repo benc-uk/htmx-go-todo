@@ -1,0 +1,22 @@
+{{ define "todo" }}
+
+<div class="container">
+  <table class="table is-hoverable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Details</th>
+        <th>Priority</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody hx-get="/data/todos" hx-trigger="load" hx-swap="innerHTML">
+    </tbody>
+  </table>
+</div>
+
+{{ end }}

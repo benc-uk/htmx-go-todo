@@ -1,0 +1,5 @@
+{{ define "data/todo/list" }}
+{{ range . }}
+{{ template "data/todo/single" .}}
+{{ end }}
+{{ end }}

@@ -1,0 +1,36 @@
+{{ define "data/todo/single" }}
+
+<tr hx-target="closest tr" hx-swap="outerHTML"
+  class="{{ if .Done }} has-text-grey-light has-background-white-ter {{ end }}">
+  <td>
+    {{ if .Done }}
+    <input class="checkbox big" checked type="checkbox" hx-put="/data/todos/{{ .ID }}" hx-vals='{ "done": false }'>
+    {{ else }}
+    <input class="checkbox big" type="checkbox" hx-put="/data/todos/{{ .ID }}" hx-vals='{ "done": true }'>
+    {{ end }}
+  </td>
+
+  <td>{{ .Title }}</td>
+
+  <td>{{ .Details }}</td>
+
+  <td>
+    {{ if eq .Priority 1 }}
+    <i class="has-text-danger fa-solid fa-circle-exclamation big" hx-put="/data/todos/{{ .ID }}"
+      hx-vals='{ "priority": 3 }'></i>
+    {{ else if eq .Priority 2 }}
+    <i class="fa-solid fa-circle-minus big" hx-put="/data/todos/{{ .ID }}" hx-vals='{ "priority": 1 }'></i>
+    {{ else if eq .Priority 3 }}
+    <i class="has-text-success fa-solid fa-circle-down big" hx-put="/data/todos/{{ .ID }}"
+      hx-vals='{ "priority": 2 }'></i>
+    {{ end }}
+  </td>
+
+  <td>
+    <button class="button is-success" hx-get="/data/todos/{{ .ID }}/edit">
+      <i class="fa fa-fw fa-edit"></i>
+    </button>
+  </td>
+</tr>
+
+{{ end }}

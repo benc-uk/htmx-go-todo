@@ -1,0 +1,58 @@
+{{ define "index" }}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMX Todo App</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <script src="/static/htmx.min.js"></script>
+
+  <link rel="stylesheet" href="/static/site.css" />
+
+  <link rel="shortcut icon" href="/static/icon.png" type="image/png" />
+</head>
+
+<body>
+  <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/static/icon.png"> &nbsp; <b>Todo App</b>
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" hx-get="/view/home" hx-target="#main" hx-push-url="/p/home">
+          Home
+        </a>
+
+        <a class="navbar-item" hx-get="/view/todo" hx-target="#main" hx-push-url="/p/todo">
+          Todo
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section m-2 p-0" id="main" hx-trigger="load" hx-get="/view/{{ .View }}">
+  </section>
+
+  <footer class="footer">
+    <div class="is-pulled-right">HTMX and Go - Todo App v0.0.1</div>
+  </footer>
+</body>
+
+</html>
+
+{{ end }}
