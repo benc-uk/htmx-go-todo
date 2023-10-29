@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Implement echo.Renderer interface
 type HTMLRenderer struct {
 	templates *template.Template
 }
@@ -16,6 +17,7 @@ func (r *HTMLRenderer) Render(w io.Writer, name string, data interface{}, c echo
 	return r.templates.ExecuteTemplate(w, name, data)
 }
 
+// For showing sub-sections or views of the application
 func ViewHandler(c echo.Context) error {
 	name := c.Param("viewName")
 
@@ -28,6 +30,8 @@ func ViewHandler(c echo.Context) error {
 	return nil
 }
 
+// This function returns a new HTMLRenderer which loads templates from
+// the ./templates directory
 func getHTMLRenderer() *HTMLRenderer {
 	return &HTMLRenderer{
 		templates: template.Must(template.ParseGlob("./templates/**/*.html")),
