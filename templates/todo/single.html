@@ -16,12 +16,12 @@
 
   <td>
     {{ if eq .Priority 1 }}
-    <i class="has-text-danger fa-solid fa-circle-exclamation big" hx-put="/data/todos/{{ .ID }}"
+    <i class="fa-solid fa-circle-up big" hx-put="/data/todos/{{ .ID }}"
       hx-vals='{ "priority": 3 }'></i>
     {{ else if eq .Priority 2 }}
     <i class="fa-solid fa-circle-minus big" hx-put="/data/todos/{{ .ID }}" hx-vals='{ "priority": 1 }'></i>
     {{ else if eq .Priority 3 }}
-    <i class="has-text-success fa-solid fa-circle-down big" hx-put="/data/todos/{{ .ID }}"
+    <i class="fa-solid fa-circle-down big" hx-put="/data/todos/{{ .ID }}"
       hx-vals='{ "priority": 2 }'></i>
     {{ end }}
   </td>

@@ -19,7 +19,7 @@ func (r *HTMLRenderer) Render(w io.Writer, name string, data interface{}, c echo
 
 // This function returns a new HTMLRenderer which loads templates from
 // the ./templates directory
-func getHTMLRenderer() *HTMLRenderer {
+func newHTMLRenderer() *HTMLRenderer {
 	return &HTMLRenderer{
 		templates: template.Must(template.ParseGlob("./templates/**/*.html")),
 	}
@@ -47,8 +47,8 @@ func AddViewHandlers(e *echo.Echo) {
 		viewName := c.Param("viewName")
 
 		// Render the main index template with the view name
-		return c.Render(http.StatusOK, "index", map[string]interface{}{
-			"View": viewName,
+		return c.Render(http.StatusOK, "index", map[string]any{
+			"view": viewName,
 		})
 	})
 }

@@ -13,7 +13,7 @@ func main() {
 	e := echo.New()
 
 	// Set the renderer to our HTML template renderer
-	e.Renderer = getHTMLRenderer()
+	e.Renderer = newHTMLRenderer()
 
 	// Root handler shows the home view
 	e.GET("/", func(c echo.Context) error {

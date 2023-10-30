@@ -1,8 +1,9 @@
 package todo
 
 import (
-	"log"
+	"math/rand"
 	"net/http"
+	"sort"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
@@ -20,22 +21,46 @@ type Todo struct {
 
 // Our in memory todo list
 var todoList = []Todo{
-	{1, "Buy milk", false, 1, "Low fat", []string{"shopping", "personal"}},
-	{2, "Buy bread", true, 1, "Whole grain", []string{"shopping", "personal"}},
-	{3, "Buy cheese", false, 2, "Swiss", []string{"shopping", "personal"}},
-	{4, "Buy beer", true, 3, "IPA", []string{"shopping", "personal"}},
-	{5, "Buy wine", false, 1, "Merlot", []string{"shopping", "personal"}},
-	{6, "Buy eggs", false, 1, "Free range", []string{"shopping", "personal"}},
-	{7, "Buy butter", false, 2, "Salted", []string{"shopping", "personal"}},
-	{8, "Buy jam", true, 1, "Strawberry", []string{"shopping", "personal"}},
+	{1, "Buy a goat", false, 1, "One that's nice and friendly", []string{"shopping", "personal"}},
+	{2, "Learn to juggle", false, 2, "Buy some balls and start practicing", []string{"personal", "skills"}},
+	{3, "Conquer the world", false, 1, "Start by taking over a small country", []string{"ambitious"}},
+	{4, "Become a ninja", false, 3, "Train in the art of stealth and combat", []string{"personal", "skills"}},
+	{5, "Learn to play the guitar", false, 2, "Start with some basic chords", []string{"personal", "skills"}},
+	{6, "Build a robot", false, 1, "Gather materials and start building", []string{"hobby", "technology"}},
+	{7, "Write a book", false, 2, "Start with an outline", []string{"personal", "skills"}},
+	{8, "Cook a 3 course meal", false, 3, "Start with a main course", []string{"personal", "skills"}},
+	{9, "Learn to fly", false, 1, "Start with a small plane", []string{"personal", "skills"}},
+	{10, "Visit the moon", false, 1, "Start by building a rocket", []string{"ambitious"}},
+	{11, "Learn to draw", false, 2, "Start with a pencil and paper", []string{"personal", "skills"}},
 }
+
+const pageSize = 10
 
 func AddHandlers(e *echo.Echo) {
 	//
-	// Fetch todo list using GET
+	// List all todo using GET
 	//
 	e.GET("/data/todos", func(c echo.Context) error {
-		err := c.Render(http.StatusOK, "todo/list", todoList)
+		offset := c.QueryParam("offset")
+
+		offsetInt := 0
+		if offset != "" {
+			offsetInt, _ = strconv.Atoi(offset)
+		}
+
+		hasMore := true
+		upperOffset := offsetInt + pageSize
+		if upperOffset >= len(todoList) {
+			upperOffset = len(todoList)
+			hasMore = false
+		}
+
+		err := c.Render(http.StatusOK, "todo/list", map[string]any{
+			"todos":   todoList[offsetInt:upperOffset],
+			"offset":  offsetInt + pageSize,
+			"hasMore": hasMore,
+		})
+
 		return err
 	})
 
@@ -71,9 +96,6 @@ func AddHandlers(e *echo.Echo) {
 		if todo == nil {
 			return c.HTML(http.StatusNotFound, "")
 		}
-
-		p, _ := c.FormParams()
-		log.Println("### Edit todo:", p)
 
 		done := c.FormValue("done")
 		title := c.FormValue("title")
@@ -124,9 +146,6 @@ func AddHandlers(e *echo.Echo) {
 	})
 
 	e.POST("/data/todos", func(c echo.Context) error {
-		p, _ := c.FormParams()
-		log.Println("### Create todo:", p)
-
 		done := c.FormValue("done")
 		title := c.FormValue("title")
 		details := c.FormValue("details")
@@ -139,19 +158,24 @@ func AddHandlers(e *echo.Echo) {
 
 		priorityInt, err := strconv.Atoi(priority)
 		if err != nil {
-			priorityInt = 1
+			priorityInt = 2
 		}
 
 		todo := Todo{
-			ID:       len(todoList) + 1,
+			ID:       rand.Intn(80000),
 			Title:    title,
 			Done:     doneBool,
 			Priority: priorityInt,
 			Details:  details,
 		}
 
-		todoList = append(todoList, todo)
+		// Add to todoList at the start
+		todoList = append([]Todo{todo}, todoList...)
 
+		// sort todoList by priority (highest first)
+		sort.Slice(todoList, func(i, j int) bool {
+			return todoList[i].Priority < todoList[j].Priority
+		})
 		// Note that we render the list view here, not one of the todo views
 		return c.Render(http.StatusOK, "view/list-todos", nil)
 	})

@@ -8,7 +8,7 @@
       </p>
     </div>
 
-    <form hx-post="/data/todos" hx-target="#main" hx-swap="transition:true" hx-push-url="/p/todo">
+    <form hx-post="/data/todos" hx-target="#main" hx-swap="transition:true" hx-push-url="/p/list-todos">
       <section class="card-content p-4">
 
         <div class="field">
@@ -48,7 +48,7 @@
       <footer class="card-footer p-3">
         <button class="button is-success mr-5">Create</button>
 
-        <button class="button" hx-get="/view/list-todos" hx-target="#main" hx-push-url="/p/todo"
+        <button class="button" hx-get="/view/list-todos" hx-target="#main" hx-push-url="/p/list-todos"
           hx-swap="transition:true">Cancel</button>
       </footer>
     </form>

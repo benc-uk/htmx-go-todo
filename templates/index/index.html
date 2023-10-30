@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <script src="https://unpkg.com/htmx.org@1.9.6"></script>
 
-  <!-- Local ones -->
+  <!-- Local deps -->
   <link rel="stylesheet" href="/static/site.css" />
   <link rel="shortcut icon" href="/static/icon.png" type="image/png" />
 </head>
@@ -51,7 +51,7 @@
     </div>
   </nav>
 
-  <section class="section m-2 p-0 slideup-transition" id="main" hx-trigger="load" hx-get="/view/{{ or .View "home" }}">
+  <section class="section m-2 p-0 slideup-transition" id="main" hx-trigger="load" hx-get="/view/{{ or .view "home" }}">
   </section>
 
   <footer class="footer">

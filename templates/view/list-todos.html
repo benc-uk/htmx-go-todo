@@ -4,12 +4,12 @@
   <div class="card mt-5">
     <div class="card-content p-3 gradient-blue">
       <p class="title has-text-white">
-        <i class="fa-solid fa-table-list"></i> &nbsp; Your Todo List
+        <i class="fa-solid fa-list-check"></i> &nbsp; Your Todo List
       </p>
     </div>
 
     <section class="card-content p-4">
-      <table class="table is-hoverable is-fullwidth">
+      <table class="table is-hoverable is-fullwidth" id="todo-list">
         <thead>
           <tr>
             <th>Done</th>
@@ -20,11 +20,12 @@
           </tr>
         </thead>
 
-        <tbody hx-get="/data/todos" hx-trigger="load" hx-swap="innerHTML">
+        <tbody hx-get="/data/todos?offsset=0" hx-trigger="load" hx-swap="innerHTML">
         </tbody>
       </table>
     </section>
   </div>
+
 </div>
 
 {{ end }}
