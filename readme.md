@@ -26,7 +26,7 @@ The structure of the repo is as follows
 └── todo        Go code for the todo handler
 ```
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/benc-uk/htmx-go-todo/ci.yml) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/benc-uk/htmx-go-todo)
+[![CI Workflow](https://github.com/benc-uk/htmx-go-todo/actions/workflows/ci.yml/badge.svg)](https://github.com/benc-uk/htmx-go-todo/actions/workflows/ci.yml) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/benc-uk/htmx-go-todo)
 
 
 ## 🧑‍💻 Developer Notes
