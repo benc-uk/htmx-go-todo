@@ -9,3 +9,12 @@ Tech stack:
 - [Bulma](https://bulma.io/) (CSS)
 
 Yes it's a todo app, of course it is!
+
+
+## Running
+
+```bash
+make run
+```
+
+Open http://localhost:4000
