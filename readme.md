@@ -4,7 +4,7 @@ An example of a simple HTMX app built using Go, created entirely for learning pu
 
 Tech stack:
 
-- Go
+- [Go](https://go.dev/)
 - [Echo](https://echo.labstack.com/) - A web framework and routing for Go
 - [HTMX](https://htmx.org/) - Hypertext magic and the reason this repo exists.
 - [html/template](https://pkg.go.dev/html/template) - The standard Go package for templating HTML
