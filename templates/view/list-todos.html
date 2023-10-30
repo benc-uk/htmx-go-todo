@@ -1,0 +1,30 @@
+{{ define "view/list-todos" }}
+
+<div class="container">
+  <div class="card mt-5">
+    <div class="card-content p-3 gradient-blue">
+      <p class="title has-text-white">
+        <i class="fa-solid fa-table-list"></i> &nbsp; Your Todo List
+      </p>
+    </div>
+
+    <section class="card-content p-4">
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Done</th>
+            <th>Title</th>
+            <th>Details</th>
+            <th>Priority</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+
+        <tbody hx-get="/data/todos" hx-trigger="load" hx-swap="innerHTML">
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+
+{{ end }}

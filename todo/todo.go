@@ -35,7 +35,7 @@ func AddHandlers(e *echo.Echo) {
 	// Fetch todo list using GET
 	//
 	e.GET("/data/todos", func(c echo.Context) error {
-		err := c.Render(http.StatusOK, "data/todo/list", todoList)
+		err := c.Render(http.StatusOK, "todo/list", todoList)
 		return err
 	})
 
@@ -48,7 +48,7 @@ func AddHandlers(e *echo.Echo) {
 			return c.HTML(http.StatusNotFound, "")
 		}
 
-		return c.Render(http.StatusOK, "data/todo/single", todo)
+		return c.Render(http.StatusOK, "todo/single", todo)
 	})
 
 	//
@@ -60,7 +60,7 @@ func AddHandlers(e *echo.Echo) {
 			return c.HTML(http.StatusNotFound, "")
 		}
 
-		return c.Render(http.StatusOK, "data/todo/edit", todo)
+		return c.Render(http.StatusOK, "todo/edit", todo)
 	})
 
 	//
@@ -105,7 +105,7 @@ func AddHandlers(e *echo.Echo) {
 		// Mutate todoList with updated todo
 		todoList[getTodoIndexByID(todo.ID)] = *todo
 
-		return c.Render(http.StatusOK, "data/todo/single", todo)
+		return c.Render(http.StatusOK, "todo/single", todo)
 	})
 
 	//
@@ -152,7 +152,8 @@ func AddHandlers(e *echo.Echo) {
 
 		todoList = append(todoList, todo)
 
-		return c.Render(http.StatusOK, "list-todo", nil)
+		// Note that we render the list view here, not one of the todo views
+		return c.Render(http.StatusOK, "view/list-todos", nil)
 	})
 }
 

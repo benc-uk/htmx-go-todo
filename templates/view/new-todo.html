@@ -1,10 +1,10 @@
-{{ define "new-todo" }}
+{{ define "view/new-todo" }}
 
 <div class="container">
   <div class="card mt-5">
-    <div class="card-content p-3 has-background-info">
+    <div class="card-content p-3 gradient-blue">
       <p class="title has-text-white">
-        <i class="fa-solid fa-table-list"></i> &nbsp; New Todo
+        <i class="fa-solid fa-square-plus"></i> &nbsp; New Todo
       </p>
     </div>
 
@@ -48,7 +48,7 @@
       <footer class="card-footer p-3">
         <button class="button is-success mr-5">Create</button>
 
-        <button class="button" hx-get="/view/todo" hx-target="#main" hx-push-url="/p/todo"
+        <button class="button" hx-get="/view/list-todos" hx-target="#main" hx-push-url="/p/todo"
           hx-swap="transition:true">Cancel</button>
       </footer>
     </form>

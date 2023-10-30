@@ -38,7 +38,7 @@
           <i class="fa-solid fa-home"></i> &nbsp; Home
         </a>
 
-        <a class="navbar-item" hx-get="/view/list-todo" hx-target="#main" hx-push-url="/p/list-todo"
+        <a class="navbar-item" hx-get="/view/list-todos" hx-target="#main" hx-push-url="/p/list-todos"
           hx-swap="transition:true">
           <i class="fa-solid fa-list"></i> &nbsp; Todo List
         </a>
@@ -51,11 +51,11 @@
     </div>
   </nav>
 
-  <section class="section m-2 p-0 slideup-transition" id="main" hx-trigger="load" hx-get="/view/{{ .View }}">
+  <section class="section m-2 p-0 slideup-transition" id="main" hx-trigger="load" hx-get="/view/{{ or .View "home" }}">
   </section>
 
   <footer class="footer">
-    <div class="is-pulled-right">HTMX and Go - Todo App v0.0.1</div>
+    <div class="is-pulled-right">HTMX and Go - Todo App v0.0.2</div>
   </footer>
 </body>
 

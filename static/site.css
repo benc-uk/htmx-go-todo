@@ -21,6 +21,20 @@ input[type='radio'] {
   transform: scale(2);
 }
 
+td {
+  text-align: center;
+}
+
+.hero {
+  background: rgb(13, 9, 86);
+  background: linear-gradient(90deg, rgba(13, 9, 86, 1) 0%, rgba(12, 79, 149, 1) 35%, rgba(0, 212, 255, 1) 100%);
+}
+
+.gradient-blue {
+  background: rgb(13, 9, 86);
+  background: linear-gradient(90deg, rgba(13, 9, 86, 1) 0%, rgba(12, 79, 149, 1) 35%, rgba(0, 212, 255, 1) 100%);
+}
+
 /* ======= Transitions ======= */
 
 @keyframes fade-in {
