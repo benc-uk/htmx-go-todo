@@ -122,6 +122,38 @@ func AddHandlers(e *echo.Echo) {
 
 		return c.HTML(http.StatusOK, "")
 	})
+
+	e.POST("/data/todos", func(c echo.Context) error {
+		p, _ := c.FormParams()
+		log.Println("### Create todo:", p)
+
+		done := c.FormValue("done")
+		title := c.FormValue("title")
+		details := c.FormValue("details")
+		priority := c.FormValue("priority")
+
+		doneBool, err := strconv.ParseBool(done)
+		if err != nil {
+			doneBool = false
+		}
+
+		priorityInt, err := strconv.Atoi(priority)
+		if err != nil {
+			priorityInt = 1
+		}
+
+		todo := Todo{
+			ID:       len(todoList) + 1,
+			Title:    title,
+			Done:     doneBool,
+			Priority: priorityInt,
+			Details:  details,
+		}
+
+		todoList = append(todoList, todo)
+
+		return c.Render(http.StatusOK, "list-todo", nil)
+	})
 }
 
 // Helper function to find a todo by ID

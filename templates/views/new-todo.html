@@ -1,0 +1,58 @@
+{{ define "new-todo" }}
+
+<div class="container">
+  <div class="card mt-5">
+    <div class="card-content p-3 has-background-info">
+      <p class="title has-text-white">
+        <i class="fa-solid fa-table-list"></i> &nbsp; New Todo
+      </p>
+    </div>
+
+    <form hx-post="/data/todos" hx-target="#main" hx-swap="transition:true" hx-push-url="/p/todo">
+      <section class="card-content p-4">
+
+        <div class="field">
+          <label class="label">Title</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Something" name="title" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Details</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Blah blah" name="details" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Priority</label>
+          <div class="control">
+            <label class="radio mr-5">
+              <input type="radio" name="priority" value="3">
+              <i class="has-text-success fa-solid fa-circle-down big"></i> Low
+            </label>
+            <label class="radio">
+              <input type="radio" name="priority" value="2" checked>
+              <i class="fa-solid fa-circle-minus"></i> Medium
+            </label>
+            <label class="radio">
+              <input type="radio" name="priority" value="1">
+              <i class="has-text-danger fa-solid fa-circle-exclamation"></i> High
+            </label>
+          </div>
+        </div>
+
+      </section>
+
+      <footer class="card-footer p-3">
+        <button class="button is-success mr-5">Create</button>
+
+        <button class="button" hx-get="/view/todo" hx-target="#main" hx-push-url="/p/todo"
+          hx-swap="transition:true">Cancel</button>
+      </footer>
+    </form>
+  </div>
+</div>
+
+{{ end }}

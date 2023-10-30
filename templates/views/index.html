@@ -35,17 +35,23 @@
     <div id="navbar" class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item" hx-get="/view/home" hx-target="#main" hx-push-url="/p/home" hx-swap="transition:true">
-          Home
+          <i class="fa-solid fa-home"></i> &nbsp; Home
         </a>
 
-        <a class="navbar-item" hx-get="/view/todo" hx-target="#main" hx-push-url="/p/todo" hx-swap="transition:true">
-          Todo
+        <a class="navbar-item" hx-get="/view/list-todo" hx-target="#main" hx-push-url="/p/list-todo"
+          hx-swap="transition:true">
+          <i class="fa-solid fa-list"></i> &nbsp; Todo List
+        </a>
+
+        <a class="navbar-item" hx-get="/view/new-todo" hx-target="#main" hx-push-url="/p/new-todo"
+          hx-swap="transition:true">
+          <i class="fa-solid fa-square-plus"></i> &nbsp; Create
         </a>
       </div>
     </div>
   </nav>
 
-  <section class="section m-2 p-0 sample-transition" id="main" hx-trigger="load" hx-get="/view/{{ .View }}">
+  <section class="section m-2 p-0 slideup-transition" id="main" hx-trigger="load" hx-get="/view/{{ .View }}">
   </section>
 
   <footer class="footer">

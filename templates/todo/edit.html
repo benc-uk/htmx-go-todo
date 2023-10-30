@@ -3,9 +3,15 @@
 <tr hx-target="closest tr" hx-swap="outerHTML" class="has-background-dark">
   <td></td>
 
-  <td><input name="title" class="input" type="text" value="{{.Title}}"></td>
+  <td>
+    <input name="title" class="input" type="text" value="{{.Title}}" hx-put="/data/todos/{{ .ID }}"
+      hx-include="closest tr" hx-trigger="keyup[keyCode==13]" required>
+  </td>
 
-  <td><input name="details" class="input" type="text" value="{{.Details}}"></td>
+  <td>
+    <input name="details" class="input" type="text" value="{{.Details}}" hx-put="/data/todos/{{ .ID }}"
+      hx-include="closest tr" hx-trigger="keyup[keyCode==13]">
+  </td>
 
   <td></td>
 
