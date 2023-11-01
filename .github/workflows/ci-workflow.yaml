@@ -31,5 +31,5 @@ jobs:
       - name: Push the Docker image
         if: github.ref == 'refs/heads/main'
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u THIS_DOES_NOT_MATTER --password-stdin
           make image-push
