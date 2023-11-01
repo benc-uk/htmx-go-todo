@@ -3,7 +3,8 @@ ifneq (,$(wildcard ./.env))
 	export
 endif
 
-VERISON := $(shell git describe --tags --always --dirty)
+VERSION ?= $(shell git describe --tags --always --dirty)
+IMAGE_NAME ?= ghcr.io/benc-uk/htmx-go-todo
 
 REPO_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 
@@ -42,4 +43,8 @@ lint-fix: ## 📝 Lint & format, attempts to fix errors & modify code
 
 image: ## 🐳 Build the docker image
 	@figlet $@ || true
-	docker build . --file build/Dockerfile --tag benc-uk/htmx-go-todo:$(VERISON)
+	docker build . --file build/Dockerfile --tag $(IMAGE_NAME):$(VERSION)
+
+image-push: ## 📤 Push the docker image to Docker Hub
+	@figlet $@ || true
+	docker push $(IMAGE_NAME):$(VERSION)
