@@ -3,6 +3,8 @@ ifneq (,$(wildcard ./.env))
 	export
 endif
 
+VERISON := $(shell git describe --tags --always --dirty)
+
 REPO_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 
 .EXPORT_ALL_VARIABLES:
@@ -37,3 +39,7 @@ lint: ## 🔍 Lint & format check only, sets exit code on error for CI
 lint-fix: ## 📝 Lint & format, attempts to fix errors & modify code
 	@figlet $@ || true
 	$(GOLINT_PATH) run --fix
+
+image: ## 🐳 Build the docker image
+	@figlet $@ || true
+	docker build . --file build/Dockerfile --tag benc-uk/htmx-go-todo:$(VERISON)

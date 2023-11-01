@@ -5,7 +5,7 @@ WORKDIR /build
 
 COPY go.mod go.sum ./
 COPY server/ ./server/
-COPY todo/ ./todo/
+COPY pkg/ ./pkg/
 
 RUN go mod download
 RUN go build -o ./bin/server htmx-go-todo/server
