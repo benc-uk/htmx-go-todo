@@ -5,20 +5,25 @@
 ### Create a new todo
 POST http://localhost:4000/data/todos
 Content-Type: application/x-www-form-urlencoded
+HX-Request: true
 
 title=Something {{$randomInt 1 7777 }}&details=Blah blah blah&done=false&priority=1
 
 ### Get a todo
 GET http://localhost:4000/data/todos/4
+HX-Request: true
 
 ### Get all todos
 GET http://localhost:4000/data/todos
+HX-Request: true
 
 ### Delete a todo
 DELETE http://localhost:4000/data/todos/1
+HX-Request: true
 
 ### Update a todo
 PUT http://localhost:4000/data/todos/1
 Content-Type: application/x-www-form-urlencoded
+HX-Request: true
 
-title=I like cheese&details=Hello there!&done=true&priority=1
+title=fooo&details=Hello there!&done=true&priority=3

@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"htmx-go-todo/pkg/middleware"
 	"io"
 	"net/http"
 
@@ -27,9 +28,13 @@ func newHTMLRenderer() *HTMLRenderer {
 
 // Register the view handlers
 func AddViewHandlers(e *echo.Echo) {
+	g := e.Group("/view")
+	g.Use(middleware.HTMXGuard())
+
 	// Views are sub sections of the application, like home or todos
 	// These are rendered under the navbar
-	e.GET("/view/:viewName", func(c echo.Context) error {
+	g.GET("/:viewName", func(c echo.Context) error {
+
 		name := c.Param("viewName")
 
 		err := c.Render(http.StatusOK, "view/"+name, nil)

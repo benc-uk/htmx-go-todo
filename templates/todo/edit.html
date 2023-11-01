@@ -16,18 +16,21 @@
   <td></td>
 
   <td>
+    <!-- Cancel -->
     <button class="button is-light" hx-get="/data/todos/{{ .ID }}">
       <i class="fa fa-fw fa-ban"></i>
     </button>
   </td>
 
   <td>
+    <!-- Save -->
     <button class="button is-success" hx-put="/data/todos/{{ .ID }}" hx-include="closest tr">
       <i class="fa fa-fw fa-check"></i>
     </button>
   </td>
 
   <td>
+    <!-- Delete -->
     <button class="button is-danger" hx-delete="/data/todos/{{ .ID }}" hx-swap="swap:0.5s">
       <i class="fa fa-fw fa-trash"></i>
     </button>

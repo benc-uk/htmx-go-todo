@@ -20,11 +20,14 @@ All of this and not a single line of JavaScript! 😃
 
 The structure of the repo is as follows
 ```
-├── build       Dockerfiles and other build artifacts
-├── server      Go code for HTTP server
-├── static      Static files, images CSS etc
-├── templates   HTML templates (see below)
-└── todo        Go code for the todo handler
+📂
+ ├── build           Dockerfiles and other build artifacts
+ ├── pkg
+ │   ├── middleware  Simple middleware helpers for HTMX
+ │   └── todo        Implementation of the todo data endpoints
+ ├── server          Main Go code for HTTP server
+ ├── static          Static files, images CSS etc
+ └── templates       HTML templates (see below)
 ```
 
 [![CI Workflow](https://github.com/benc-uk/htmx-go-todo/actions/workflows/ci.yml/badge.svg)](https://github.com/benc-uk/htmx-go-todo/actions/workflows/ci.yml) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/benc-uk/htmx-go-todo)

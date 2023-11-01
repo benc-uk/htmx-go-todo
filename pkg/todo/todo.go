@@ -1,6 +1,7 @@
 package todo
 
 import (
+	"htmx-go-todo/pkg/middleware"
 	"math/rand"
 	"net/http"
 	"sort"
@@ -37,10 +38,16 @@ var todoList = []Todo{
 const pageSize = 10
 
 func AddHandlers(e *echo.Echo) {
+	// The base path for all todo handlers
+	g := e.Group("/data/todos")
+
+	// This blocks users from directlyaccessing these data endpoints
+	g.Use(middleware.HTMXGuard())
+
 	//
 	// List all todo using GET
 	//
-	e.GET("/data/todos", func(c echo.Context) error {
+	g.GET("", func(c echo.Context) error {
 		offset := c.QueryParam("offset")
 
 		offsetInt := 0
@@ -67,7 +74,7 @@ func AddHandlers(e *echo.Echo) {
 	//
 	// Fetch todo using GET for viewing
 	//
-	e.GET("/data/todos/:id", func(c echo.Context) error {
+	g.GET("/:id", func(c echo.Context) error {
 		todo := findTodoByID(c)
 		if todo == nil {
 			return c.HTML(http.StatusNotFound, "")
@@ -79,7 +86,7 @@ func AddHandlers(e *echo.Echo) {
 	//
 	// Fetch todo using GET for editing
 	//
-	e.GET("/data/todos/:id/edit", func(c echo.Context) error {
+	g.GET("/:id/edit", func(c echo.Context) error {
 		todo := findTodoByID(c)
 		if todo == nil {
 			return c.HTML(http.StatusNotFound, "")
@@ -91,35 +98,44 @@ func AddHandlers(e *echo.Echo) {
 	//
 	// Update todo using PUT
 	//
-	e.PUT("/data/todos/:id", func(c echo.Context) error {
+	g.PUT("/:id", func(c echo.Context) error {
 		todo := findTodoByID(c)
 		if todo == nil {
 			return c.HTML(http.StatusNotFound, "")
 		}
 
-		done := c.FormValue("done")
-		title := c.FormValue("title")
-		details := c.FormValue("details")
-		priority := c.FormValue("priority")
+		formValues, err := c.FormParams()
+		if err != nil {
+			return c.HTML(http.StatusInternalServerError, "")
+		}
 
-		if done != "" {
-			doneBool, err := strconv.ParseBool(done)
+		if formValues.Has("done") {
+			doneBool, err := strconv.ParseBool(c.FormValue("done"))
 			if err == nil {
 				todo.Done = doneBool
 			}
 		}
 
-		if title != "" {
-			todo.Title = title
+		if formValues.Has("title") {
+			title := c.FormValue("title")
+			if title == "" {
+				return c.HTML(http.StatusBadRequest, "Title cannot be empty")
+			}
+
+			todo.Title = c.FormValue("title")
 		}
 
-		if details != "" {
-			todo.Details = details
+		if formValues.Has("details") {
+			todo.Details = c.FormValue("details")
 		}
 
-		if priority != "" {
-			priorityInt, err := strconv.Atoi(priority)
+		if formValues.Has("priority") {
+			priorityInt, err := strconv.Atoi(c.FormValue("priority"))
 			if err == nil {
+				if priorityInt < 1 || priorityInt > 3 {
+					return c.HTML(http.StatusBadRequest, "Priority must be between 1 and 3")
+				}
+
 				todo.Priority = priorityInt
 			}
 		}
@@ -133,7 +149,7 @@ func AddHandlers(e *echo.Echo) {
 	//
 	// Delete a todo using DELETE
 	//
-	e.DELETE("/data/todos/:id", func(c echo.Context) error {
+	g.DELETE("/:id", func(c echo.Context) error {
 		// delete from todoList
 		todo := findTodoByID(c)
 		if todo == nil {
@@ -145,7 +161,7 @@ func AddHandlers(e *echo.Echo) {
 		return c.HTML(http.StatusOK, "")
 	})
 
-	e.POST("/data/todos", func(c echo.Context) error {
+	g.POST("", func(c echo.Context) error {
 		done := c.FormValue("done")
 		title := c.FormValue("title")
 		details := c.FormValue("details")
@@ -158,7 +174,15 @@ func AddHandlers(e *echo.Echo) {
 
 		priorityInt, err := strconv.Atoi(priority)
 		if err != nil {
-			priorityInt = 2
+			return c.HTML(http.StatusBadRequest, "Priority must be a number")
+		}
+
+		if priorityInt < 1 || priorityInt > 3 {
+			return c.HTML(http.StatusBadRequest, "Priority must be between 1 and 3")
+		}
+
+		if title == "" {
+			return c.HTML(http.StatusBadRequest, "Title cannot be empty")
 		}
 
 		todo := Todo{

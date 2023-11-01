@@ -1,7 +1,7 @@
 package main
 
 import (
-	"htmx-go-todo/todo"
+	"htmx-go-todo/pkg/todo"
 	"net/http"
 	"os"
 
