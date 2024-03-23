@@ -25,10 +25,10 @@ jobs:
       - name: Run linter
         uses: golangci/golangci-lint-action@v3
 
-      - name: Build the Docker image
+      - name: Build container image
         run: make image
 
-      - name: Push the Docker image
+      - name: Push container image
         if: github.ref == 'refs/heads/main'
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u THIS_DOES_NOT_MATTER --password-stdin
